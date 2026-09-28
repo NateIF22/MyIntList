@@ -28,7 +28,6 @@ namespace MyIntList
             }
         }
 
-        // TODO: Think of a better name for this
         private IntListElement? FindPrevious(IntListElement pointer)
         {
             var current = FirstElement;
