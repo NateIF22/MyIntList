@@ -8,7 +8,7 @@ namespace MyIntList
     {
         public int Value { get; set; }
         public int Position { get; set; }
-        private IntListElement Pointer { get; set; } = null;
+        private IntListElement? Pointer { get; set; } = null;
         public IntListElement(int value, int position)
         {
             Value = value;
@@ -25,7 +25,7 @@ namespace MyIntList
             Pointer = pointer;
         }
 
-        public IntListElement GetPointer()
+        public IntListElement? GetPointer()
         {
             return Pointer;
         }

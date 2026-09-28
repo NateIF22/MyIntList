@@ -7,12 +7,8 @@ namespace MyIntList
 {
     internal class IntList
     {
-        IntListElement firstElement { get; set; }
-        public int Size = 0;
-        public IntList()
-        {
-            
-        }
+        private IntListElement? FirstElement { get; set; } = null;
+        private int Size = 0;
 
         private void NewList()
         {
@@ -21,7 +17,7 @@ namespace MyIntList
 
         private IntListElement FindEnd()
         {
-            IntListElement currentElement = firstElement;
+            IntListElement? currentElement = FirstElement;
             while (true)
             {
                 if (currentElement.GetPointer() == null)
@@ -33,9 +29,9 @@ namespace MyIntList
         }
 
         // TODO: Think of a better name for this
-        public IntListElement FindPointer(IntListElement pointer)
+        private IntListElement? FindPrevious(IntListElement pointer)
         {
-            var current = firstElement;
+            var current = FirstElement;
             while (current != null)
             {
                 if (current.GetPointer() == pointer)
@@ -47,9 +43,9 @@ namespace MyIntList
             return null;
         }
 
-        public IntListElement FindElement(int value)
+        private IntListElement? FindElement(int value)
         {
-            var current = firstElement;
+            var current = FirstElement;
             while(current != null)
             {
                 if (current.Value == value)
@@ -68,9 +64,9 @@ namespace MyIntList
             if (element != null)
             {
                 // If the item is first in the list
-                if (element.Value == firstElement.Value)
+                if (element.Value == FirstElement.Value)
                 {
-                    firstElement = firstElement.GetPointer();
+                    FirstElement = FirstElement.GetPointer();
                     element.RemovePointer();
                     Size -= 1;
                     Console.WriteLine($"{value} has been removed from list. New list size: {Size}");
@@ -80,31 +76,23 @@ namespace MyIntList
                 // If the item is last in the list
                 if (element.GetPointer() == null)
                 {
-                    FindPointer(element).RemovePointer();
+                    FindPrevious(element).RemovePointer();
                     Size -= 1;
                     Console.WriteLine($"{value} has been removed from list. New list size: {Size}");
                     return true;
                 }
 
                 var removedPointer = element.GetPointer();
-
-                
-                // Currently only removes the pointer going from element to removedPointer,
-                // Needs to change position of previous pointer as well
                 element.RemovePointer();
-
-                // Find old pointer
-                var end = FindPointer(element);
-                // override with new element
+                
+                var end = FindPrevious(element);
                 end.AddPointer(removedPointer);
+                
                 Size -= 1;
                 
                 Console.WriteLine($"{value} has been removed from list. New list size: {Size}");
-                
-                // temp return success
                 return true;
             }
-            // temp return fail
             Console.WriteLine($"Couldn't find element: {value}");
             return false;
         }
@@ -122,7 +110,7 @@ namespace MyIntList
             }
             else
             {
-                firstElement = new IntListElement(value, Size);
+                FirstElement = new IntListElement(value, Size);
                 Size += 1;
                 Console.WriteLine($"{value} has been added to list. New list size: {Size}");
             }
