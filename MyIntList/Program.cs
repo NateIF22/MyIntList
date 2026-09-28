@@ -6,14 +6,20 @@
         {
             
             IntList intList = new IntList();
-            intList.AddElement(20);
-            intList.AddElement(2);
-            intList.AddElement(2000);
+            intList.Add(918023);
+            intList.Add(20);
+            intList.Add(2);
+            intList.Add(2000);
+
+            if (intList.Contains(918023))
+            {
+                Console.WriteLine("Contains 918023");
+            }
             
-            intList.RemoveElement(2);
-            intList.RemoveElement(15);
-            intList.RemoveElement(2000);
-            intList.RemoveElement(20);
+            intList.Remove(2);
+            intList.Remove(15);
+            intList.Remove(2000);
+            intList.Remove(20);
         }
     }
 }
