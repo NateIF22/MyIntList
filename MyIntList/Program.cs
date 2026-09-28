@@ -15,7 +15,6 @@
             {
                 Console.WriteLine("Contains 918023");
             }
-            
             intList.Remove(2);
             intList.Remove(15);
             intList.Remove(2000);

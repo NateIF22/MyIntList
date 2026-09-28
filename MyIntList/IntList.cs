@@ -8,13 +8,9 @@ namespace MyIntList
     internal class IntList
     {
         private IntListElement? FirstElement { get; set; } = null;
-        private int Size = 0;
+        private int _size = 0;
 
-        private void NewList()
-        {
-
-        }
-
+        /// Finds the current end of the list, returns the last element
         private IntListElement FindEnd()
         {
             IntListElement? currentElement = FirstElement;
@@ -61,8 +57,8 @@ namespace MyIntList
             return null;
         }
         
-
-        /// Unlinks an element from the list with a given value, returns result
+        
+        /// Unlinks an element with a given value from the list, returns result as a bool
         public bool Remove(int value)
         {
             var element = FindElement(value);
@@ -72,16 +68,16 @@ namespace MyIntList
                 {
                     FirstElement = FirstElement.GetPointer();
                     element.RemovePointer();
-                    Size -= 1;
-                    Console.WriteLine($"{value} has been removed from list. New list size: {Size}");
+                    _size -= 1;
+                    Console.WriteLine($"{value} has been removed from list. New list size: {_size}");
                     return true;
                 }
                 
                 if (element.GetPointer() == null)
                 {
                     FindPrevious(element).RemovePointer();
-                    Size -= 1;
-                    Console.WriteLine($"{value} has been removed from list. New list size: {Size}");
+                    _size -= 1;
+                    Console.WriteLine($"{value} has been removed from list. New list size: {_size}");
                     return true;
                 }
 
@@ -91,16 +87,16 @@ namespace MyIntList
                 var end = FindPrevious(element);
                 end.AddPointer(removedPointer);
                 
-                Size -= 1;
+                _size -= 1;
                 
-                Console.WriteLine($"{value} has been removed from list. New list size: {Size}");
+                Console.WriteLine($"{value} has been removed from list. New list size: {_size}");
                 return true;
             }
             Console.WriteLine($"Couldn't find element: {value}");
             return false;
         }
 
-        /// Checks if the given value matches any in the list, return result as a bool
+        /// Checks if the given value matches any elements in the list, return result as a bool
         public bool Contains(int value)
         {
             if (FindElement(value) == null)
@@ -113,22 +109,22 @@ namespace MyIntList
         /// Creates a new element and appends it to the list
         public void Add(int value)
         {
-            IntListElement newElement = new IntListElement(value, Size);
+            IntListElement newElement = new IntListElement(value, _size);
             
             
-            if (Size > 0)
+            if (_size > 0)
             {
                 IntListElement currentElement = FindEnd();
                 currentElement.AddPointer(newElement);
-                Size += 1;
-                Console.WriteLine($"{value} has been added to list. New list size: {Size}");
+                _size += 1;
+                Console.WriteLine($"{value} has been added to list. New list size: {_size}");
             }
             
             else
             {
-                FirstElement = new IntListElement(value, Size);
-                Size += 1;
-                Console.WriteLine($"{value} has been added to list. New list size: {Size}");
+                FirstElement = new IntListElement(value, _size);
+                _size += 1;
+                Console.WriteLine($"{value} has been added to list. New list size: {_size}");
             }
         }
     }
